@@ -1,0 +1,54 @@
+
+A(xmin, ymax)          B(xmax, ymax)
+     |-----------------------|
+	 |                       |
+	 |                       |
+	 |                       |
+	 |                       |
+	 |-----------------------|
+C(xmin, ymin)          D(xmax, ymin)
+
+1)	reflectOX =  1  0
+				 0 -1
+				
+	A -> (xmin, -ymax)
+	B -> (xmax, -ymax)
+	C -> (xmin, -ymin)
+	D -> (xmax, -ymax)
+	
+2)	dx = xmax - xmin
+	dy = ymax - ymin
+	
+	translate =   1     0     0
+				  0     1     0
+				 -dx/2  dy/2  1
+				 
+	A -> (xmin - dx/2, -ymax + dy/2)
+	B -> (xmax - dx/2, -ymax + dy/2)
+	C -> (xmin - dx/2, -ymin + dy/2)
+	D -> (xmax - dx/2, -ymin + dy/2)
+	
+3)	kx = width/dx
+	ky = height/dy
+	k = min(kx, ky)
+	
+	scale =  kx  0 
+			 0   ky
+
+	A -> ((xmin - dx/2) * kx, (-ymax + dy/2) * ky)
+	B -> ((xmax - dx/2) * kx, (-ymax + dy/2) * ky)
+	C -> ((xmin - dx/2) * kx, (-ymin + dy/2) * ky)
+	D -> ((xmax - dx/2) * kx, (-ymin + dy/2) * ky)
+	
+4)	tx = (xmin - dx/2) * kx
+	ty = (ymin + ymax)/2 * ky
+
+	translate =   1   0   0
+				  0   1   0
+				 -tx  ty  0
+				 
+	A -> (0, 0)
+	B -> (width, 0)
+	C -> (0, height)
+	D -> (width, height)
+				
